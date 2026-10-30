@@ -53,4 +53,4 @@ After the last post, reload the queue and check that every card for the week has
 
 ## 5. Report
 
-Send Leroy one short message: the 7 hooks, anything you had to fix, anything that failed. No em dashes. If the computer or the browser was unreachable, still do steps 1 to 3, say so plainly, and tell him the posts are ready in GitHub.
+Send Leroy one short message: each day's hook with its song suggestion (he adds music to the Instagram post by hand after it goes live), anything you had to fix, anything that failed. No em dashes. If the computer or the browser was unreachable, still do steps 1 to 3, say so plainly, and tell him the posts are ready in GitHub.
