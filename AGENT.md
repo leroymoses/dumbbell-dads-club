@@ -54,3 +54,22 @@ After the last post, reload the queue and check that every card for the week has
 ## 5. Report
 
 Send Leroy one short message: each day's hook with its song suggestion (he adds music to the Instagram post by hand after it goes live), anything you had to fix, anything that failed. No em dashes. If the computer or the browser was unreachable, still do steps 1 to 3, say so plainly, and tell him the posts are ready in GitHub.
+
+## 6. Update the scoreboard (after step 5's scheduling, same run)
+
+Dashboard: `https://claude.ai/artifact/8brXkXrDXw76Kqt6LMft2U` (a Dashboard artifact). Its data lives in three JSON files the page reads, one row object per line of data. Never invent or estimate a number: if you can't read a value, leave that row out and say so in the report.
+
+| Dataset id | Rows | Where to read it |
+| --- | --- | --- |
+| `sales` | `{date, product, units, gross_usd, net_usd}`, one per day per product with sales. `product` is exactly `8-Week Plan` or `Bedtime Lift` | Gumroad, signed in in the built-in browser: the Sales or Customers pages at gumroad.com. Net = what Gumroad says you keep after fees |
+| `social` | `{date, platform, followers, views_7d, likes_7d, saves_7d, comments_7d, shares_7d, profile_visits_7d}`, one per app per run. `platform` is `Instagram` or `TikTok`. `date` is today | Buffer's analytics for each channel if the plan shows it; else the public profile pages (instagram.com/dumbbelldadsclub, tiktok.com/@dumbbelldadsclub) for followers, and leave the 7-day fields out if you can't see them |
+| `posts` | `{date, platform, hook, views, likes, saves, comments, shares}`, one per published post per app, numbers to date | Buffer's Sent posts with their stats; else the app's public post pages. `hook` is the first caption line |
+
+To update each file:
+1. `ArtifactData get` collection `datasets`, doc id `<id>`: note its `version` and `source.url` (`/_blob/<asset id>`).
+2. `Artifact read` with that url's asset id as `path` to get the current rows.
+3. Merge: `sales` add only days not already there; `social` append today's rows; `posts` replace each post's row by `date`+`platform` with the new numbers.
+4. Write the full array to `<id>.json` and upload it: `Artifact publish` with the dashboard `url`, `file_path`, `asset: true` (one JSON per call).
+5. `ArtifactData update` doc `datasets/<id>` with `if_version`, setting `source.url` to the new `/_blob/...`, `source.name`, and `updated: {at: <now ISO>, by: "Weekly agent"}`. Do not touch the page file.
+
+Add one line to the report: plan sales to date, net revenue, followers per app.
