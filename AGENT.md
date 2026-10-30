@@ -7,6 +7,7 @@ Read `BRAND.md` first. It is the brand book: audience, voice, hard rules, pillar
 ## 1. Plan the week
 
 - Week = the Monday after today through Sunday. Name it by Monday's date, e.g. `2026-11-09`.
+- If `posts/week-<monday>.json` already exists, that week was already built. Check the Buffer queue: if all 14 of its posts are there, stop and tell Leroy "Next week is already scheduled." If some are missing, schedule only the missing ones.
 - Read every `posts/week-*.json` so you never repeat a topic or hook.
 - One post per day:
   - Mon: The Workout (full routine)
