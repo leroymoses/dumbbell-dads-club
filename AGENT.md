@@ -7,7 +7,7 @@ Read `BRAND.md` first. It is the brand book: audience, voice, hard rules, pillar
 ## 1. Plan the week
 
 - Week = the Monday after today through Sunday. Name it by Monday's date, e.g. `2026-11-09`.
-- If `posts/week-<monday>.json` already exists, that week was already built. Check the Buffer queue: if all 14 of its posts are there, stop and tell Leroy "Next week is already scheduled." If some are missing, schedule only the missing ones.
+- If `posts/week-<monday>.json` already exists, that week was already built. Check the Buffer queue: if all 14 of its posts are there, skip to step 6 and tell Leroy "Next week is already scheduled." If some are missing, schedule only the missing ones.
 - Read every `posts/week-*.json` so you never repeat a topic or hook.
 - One post per day:
   - Mon: The Workout (full routine)
@@ -55,7 +55,7 @@ After the last post, reload the queue and check that every card for the week has
 
 Send Leroy one short message: each day's hook with its song suggestion (he adds music to the Instagram post by hand after it goes live), anything you had to fix, anything that failed. No em dashes. If the computer or the browser was unreachable, still do steps 1 to 3, say so plainly, and tell him the posts are ready in GitHub.
 
-## 6. Update the scoreboard (after step 5's scheduling, same run)
+## 6. Update the scoreboard (every run, after scheduling)
 
 Dashboard: `https://claude.ai/artifact/8brXkXrDXw76Kqt6LMft2U` (a Dashboard artifact). Its data lives in three JSON files the page reads, one row object per line of data. Never invent or estimate a number: if you can't read a value, leave that row out and say so in the report.
 
