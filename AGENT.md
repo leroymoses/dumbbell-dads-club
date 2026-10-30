@@ -16,7 +16,7 @@ Read `BRAND.md` first. It is the brand book: audience, voice, hard rules, pillar
   - Thu: Dad Life (time hacks, bedtime or nap-time training)
   - Fri: The Workout (different equipment angle: one dumbbell, two light, core, mobility)
   - Sat: Myth Busting or Dad Fuel
-  - Sun: weekly reset plus the call to action "Comment PLAN" for the 8-week plan
+  - Sun: weekly reset plus the call to action: the 8-week plan and the free Bedtime Lift are at the link in the Instagram bio. Never ask people to comment a keyword; there is no auto-DM.
 - Hard rules (from BRAND.md): no invented people, results, testimonials or transformations; no medical claims; every number gets a real source you verified with web search this run; hooks under 8 words; no em dashes anywhere; max 5 hashtags, always ending in #dumbbelldadsclub.
 
 ## 2. Build the slides
