@@ -10,7 +10,7 @@ const net=d.innerText.includes('Reel')?'instagram':'tiktok';
 const date=[...d.querySelectorAll('button')].map(b=>b.innerText.trim()).find(t=>/Nov \d/.test(t));
 let mode=[...d.querySelectorAll('button')].map(b=>b.innerText.trim()).find(t=>/^(Automatic|Notify Me)$/.test(t));
 let res={IDX,net,date,mode};
-if(net==='tiktok'&&mode==='Automatic'){
+if(mode==='Automatic'){
  const a=[...d.querySelectorAll('button')].find(b=>b.innerText.trim()==='Automatic');
  for(const t of ['pointerdown','mousedown','pointerup','mouseup']) a.dispatchEvent(new PointerEvent(t,{bubbles:true,button:0,pointerType:'mouse'})); await sleep(700);
  let item=[...document.querySelectorAll('[role=menuitem],[role=menuitemradio],[role=option]')].find(e=>e.innerText.trim().startsWith('Notify Me'));
