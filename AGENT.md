@@ -49,11 +49,13 @@ For each post, in order:
 
 Never press Escape inside a composer with unsaved changes: it closes and throws the work away.
 
+**TikTok posts are NOT automatic.** Leroy adds a trending sound by hand, so every TikTok post must be set to **Notify Me** (Buffer sends his phone a reminder at post time and he publishes it from the TikTok app). Instagram stays Automatic. After scheduling the week, for each TikTok post in the queue: reload `https://publish.buffer.com/all-channels`, then run `tools/tiktok_notify.js` with `__I__` replaced by the post's index among the "Edit post" buttons (0-based, in queue order). It opens that post, skips Instagram posts and ones already on Notify Me, switches TikTok from Automatic to Notify Me and saves. Reload before every post: after an editor closes, Buffer won't open the next one until the page reloads. Finish by checking each TikTok post of the week shows Notify Me.
+
 After the last post, reload the queue and check that every card for the week has a caption and the right slide count. Buffer shows times in the computer's clock (Pacific), so 7:00 PM Arizona can show as 6:00 PM. That is correct.
 
 ## 5. Report
 
-Send Leroy one short message: each day's hook with its song suggestion (he adds music to the Instagram post by hand after it goes live), anything you had to fix, anything that failed. No em dashes. If the computer or the browser was unreachable, still do steps 1 to 3, say so plainly, and tell him the posts are ready in GitHub.
+Send Leroy one short message: each day's hook with its song suggestion (he adds the sound to each TikTok post when Buffer's Notify Me reminder arrives, and can add music to the Instagram post after it goes live), anything you had to fix, anything that failed. No em dashes. If the computer or the browser was unreachable, still do steps 1 to 3, say so plainly, and tell him the posts are ready in GitHub.
 
 ## 6. Update the scoreboard (every run, after scheduling)
 
