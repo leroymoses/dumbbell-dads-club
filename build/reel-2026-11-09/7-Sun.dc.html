@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sun: The 3-Box Weekly Scorecard</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Graduate&amp;family=Yellowtail&amp;family=Inter:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.row{display:flex;gap:40px;font-family:Inter,system-ui,sans-serif}
+.s{width:1080px;height:1350px;box-sizing:border-box;padding:72px 72px 240px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:40px;flex-shrink:0}
+.dark{background:#1E2B45;color:#F6EEDC}
+.light{background:#F6EEDC;color:#1E2B45}
+.top{display:flex;justify-content:space-between;align-items:center;font-family:Graduate,Georgia,serif;font-size:26px;letter-spacing:.06em;text-transform:uppercase;position:relative;z-index:1}
+.dark .ct{color:#F6EEDC;background:#1E2B45;padding:8px 16px;border-radius:9999px}.light .ct{color:#5A6378}
+.bar{width:160px;height:14px;background:#F4B41A;position:relative;z-index:1}
+.hook{margin:auto 0 0;font-family:Graduate,Georgia,serif;font-weight:400;font-size:104px;line-height:1.04;text-transform:uppercase;position:relative;z-index:1}
+.o,.y{font-family:Yellowtail,cursive;text-transform:none;color:#F4B41A;font-size:1.3em;line-height:.9}
+.sub{margin:0;font-size:40px;line-height:52px;font-weight:500;max-width:860px;position:relative;z-index:1}
+.swipe{margin:0;font-family:Graduate,Georgia,serif;font-size:28px;letter-spacing:.06em;text-transform:uppercase;color:#F4B41A}
+.plate{position:absolute;right:-190px;top:-190px;width:560px;height:560px;border-radius:9999px;background:#F4B41A;box-shadow:0 0 0 18px #1E2B45,0 0 0 30px #F6EEDC;display:flex;align-items:center;justify-content:center;z-index:0}
+.hole{width:120px;height:120px;border-radius:9999px;background:#1E2B45}
+.chip{align-self:flex-start;background:#1E2B45;color:#F4B41A;font-family:Graduate,Georgia,serif;font-size:40px;line-height:1;letter-spacing:.04em;text-transform:uppercase;padding:16px 28px;margin-top:auto}
+.h{margin:0;font-family:Graduate,Georgia,serif;font-weight:400;font-size:84px;line-height:1.05;text-transform:uppercase}
+.box{background:#EADFC6;border-radius:6px;padding:32px 40px;display:flex;align-items:baseline;gap:24px;flex-wrap:wrap}
+.big{font-family:Graduate,Georgia,serif;font-size:96px;line-height:1}
+.cap{font-size:30px;font-weight:700;color:#5A6378;text-transform:uppercase;letter-spacing:.06em}
+.boxline{font-size:42px;line-height:54px;font-weight:700;flex-basis:100%}
+.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:20px}
+.list li{background:#EADFC6;border-radius:6px;padding:24px 32px;font-size:40px;line-height:50px;font-weight:700;display:flex;justify-content:space-between;gap:24px}
+.list li span{color:#A82A22}
+.b{margin:0;font-size:42px;line-height:56px;font-weight:500}
+.tip{margin:0 0 auto;font-size:34px;line-height:46px;font-weight:500;color:#5A6378}
+.tip strong{color:#A82A22}
+.src{margin:0;font-size:26px;line-height:34px;color:#5A6378}
+.cta{align-self:flex-start;background:#F4B41A;color:#1E2B45;font-family:Graduate,Georgia,serif;font-size:56px;line-height:1;padding:22px 36px}
+.handle{margin:0;font-family:Graduate,Georgia,serif;font-size:40px;color:#F4B41A}
+</style>
+</helmet>
+<div class="row">
+
+<section class="s dark">
+<div class="top"><span>Dumbbell Dads Club</span><span class="ct">1/6</span></div>
+<div class="bar"></div>
+<div class="plate" aria-hidden="true"><div class="hole"></div></div>
+<h1 class="hook">Score your<br>week in<br><span class="o">3 boxes.</span></h1>
+<p class="sub">No app. No spreadsheet. Just 3 yes or no questions.</p>
+<p class="swipe">Watch for the scorecard</p>
+</section>
+
+<section class="s light">
+<div class="top"><span>Dad Life</span><span class="ct">2/6</span></div>
+<div class="chip">Box 01</div>
+<h2 class="h">Lifted 2+ times?</h2>
+<div class="box"><span class="cap">Yes counts if</span><span class="boxline">Two full-body sessions, any length</span></div>
+<p class="b">Two short workouts beat zero perfect ones. Check the box and move on.</p>
+<p class="tip"><strong>Dad tip:</strong> A 15-minute Bedtime Lift counts.</p>
+</section>
+
+<section class="s light">
+<div class="top"><span>Dad Life</span><span class="ct">3/6</span></div>
+<div class="chip">Box 02</div>
+<h2 class="h">Protein most meals?</h2>
+<div class="box"><span class="cap">Yes counts if</span><span class="boxline">Protein on your plate at most meals this week</span></div>
+<p class="b">Not perfect meals. Just protein showing up most of the time.</p>
+<p class="tip"><strong>Dad tip:</strong> Cereal for dinner happened. Still fine.</p>
+</section>
+
+<section class="s light">
+<div class="top"><span>Dad Life</span><span class="ct">4/6</span></div>
+<div class="chip">Box 03</div>
+<h2 class="h">Kept a bedtime?</h2>
+<div class="box"><span class="cap">Yes counts if</span><span class="boxline">You went to bed on time most nights</span></div>
+<p class="b">Pick a lights-out time and treat it like a meeting. Most nights is the goal.</p>
+<p class="tip"><strong>Dad tip:</strong> One more episode is never one more episode.</p>
+</section>
+
+<section class="s light">
+<div class="top"><span>Dad Life</span><span class="ct">5/6</span></div>
+<div class="chip">The score</div>
+<h2 class="h">Count the checks</h2>
+<div class="box"><span class="cap">The math</span><span class="boxline">3 = great week. 2 = good week. 1 = still a week.</span></div>
+<p class="b">Write the score down. Next Sunday, try to beat it by one.</p>
+<p class="tip"><strong>Dad tip:</strong> 0 means you are due. Not done.</p>
+</section>
+
+<section class="s dark">
+<div class="top"><span>Dumbbell Dads Club</span><span class="ct">6/6</span></div>
+<div class="bar"></div>
+<h2 class="hook" style="font-size: 88px">Want the full<br><span class="y">8-week plan?</span></h2>
+<div class="cta">LINK IN BIO</div>
+<p class="sub">Plus a free 15-minute Bedtime Lift workout. Both at the link in our Instagram bio.</p>
+<p class="handle">@dumbbelldadsclub</p>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":6680,"height":1350}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
