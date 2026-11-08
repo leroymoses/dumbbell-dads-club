@@ -13,10 +13,15 @@ Read `BRAND.md` first. It is the brand book: audience, voice, hard rules, pillar
   - Mon: The Workout (full routine)
   - Tue: Dad Fuel (food rules, swaps, drive-thru, kids' leftovers)
   - Wed: Myth Busting (with a real, checked source)
-  - Thu: Dad Life (time hacks, bedtime or nap-time training)
+  - Thu: Dad Life (time hacks, bedtime or nap-time training). **From Thursday, November 19th, 2026, every Thursday is "Respawn Reps"** (see below).
   - Fri: The Workout (different equipment angle: one dumbbell, two light, core, mobility)
   - Sat: Myth Busting or Dad Fuel
   - Sun: weekly reset plus the call to action: the 8-week plan and the free Bedtime Lift are at the link in the Instagram bio. Never ask people to comment a keyword; there is no auto-DM.
+- **Respawn Reps (Thursday series, starts 2026-11-19, the GTA VI launch day):** a 15 to 20 minute two-dumbbell session built around a gaming night after bedtime. Quiet, no jumping.
+  - Episode 1 (2026-11-19), hook "Launch night. Lift first.": a short circuit done before picking up the controller, 3 rounds of goblet squat, bent-over row, push-up, plank.
+  - Every later Thursday: a new episode with ONE new game rule tied to moments in any game, e.g. every respawn = 10 squats, every loading screen = 20 sec plank, every finished mission = 1 round of the circuit. Read past weeks' JSON so no rule repeats. Number the episodes (slide 1 sub line: "Respawn Reps, episode <n>").
+  - Brand safety: no Rockstar or game logos, art, characters, screenshots or fonts on the slides; slides stay in our own look. The game's name may appear only in the caption and hashtags (e.g. #gta6 on launch week), never as a partnership or sponsorship. No numbers that need sources.
+  - The title on TikTok starts with "Respawn Reps:".
 - Hard rules (from BRAND.md): no invented people, results, testimonials or transformations; no medical claims; every number gets a real source you verified with web search this run; hooks under 8 words; no em dashes anywhere; max 5 hashtags, always ending in #dumbbelldadsclub.
 
 ## 2. Build the slides
