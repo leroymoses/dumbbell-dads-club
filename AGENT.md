@@ -22,18 +22,19 @@ Read `BRAND.md` first. It is the brand book: audience, voice, hard rules, pillar
   - Every later Thursday: a new episode with ONE new game rule tied to moments in any game, e.g. every respawn = 10 squats, every loading screen = 20 sec plank, every finished mission = 1 round of the circuit. Read past weeks' JSON so no rule repeats. Number the episodes (slide 1 sub line: "Respawn Reps, episode <n>").
   - Brand safety: no Rockstar or game logos, art, characters, screenshots or fonts on the slides; slides stay in our own look. The game's name may appear only in the caption and hashtags (e.g. #gta6 on launch week), never as a partnership or sponsorship. No numbers that need sources.
   - The title on TikTok starts with "Respawn Reps:".
+- **Follow hooks (BRAND.md, Growing followers).** Plan all 7 topics first, then give each post a one-line tease of the NEXT day's post, under 50 characters, specific and true ("The drive-thru order that still hits your protein"). Mon to Sat tease the next day; Sunday teases next Monday by pillar ("A new 20-minute dumbbell workout") since next week is not planned yet. A second same-day post (like a Monday Night Football extra) teases the same next-day post. Respawn Reps teases "Respawn Reps, episode <n+1>" in its caption when that is next Thursday's.
 - Hard rules (from BRAND.md): no invented people, results, testimonials or transformations; no medical claims; every number gets a real source you verified with web search this run; hooks under 8 words; no em dashes anywhere; max 5 hashtags, always ending in #dumbbelldadsclub.
 
 ## 2. Build the slides
 
-- Copy the closest file from `templates/` to `build/<week>/<n>-<Day>.dc.html` (n = 1 for Mon through 7 for Sun) and rewrite only the slide content. Keep the `<style>` block, classes and structure exactly. Slide 1 = navy hook with ONE script line (`<span class="o">`), middle slides = cream value slides, last slide = navy CTA with `@dumbbelldadsclub`. 5 to 7 slides per post.
+- Copy the closest file from `templates/` to `build/<week>/<n>-<Day>.dc.html` (n = 1 for Mon through 7 for Sun) and rewrite only the slide content. Keep the `<style>` block, classes and structure exactly. Slide 1 = navy hook with ONE script line (`<span class="o">`), middle slides = cream value slides, last slide = the follow slide exactly as in the templates: payoff hook, `.next` box (label `Tomorrow`, or `Monday` on Sunday, with that post's tease), then `.fol` with the gold FOLLOW button and `@dumbbelldadsclub`. 5 to 7 slides per post.
 - Render: `python3 tools/render.py <week>` (needs network to npm the first time). It prints overflow warnings; fix any and re-render.
 - Look at every slide 1 and at least two middle slides (Read the JPGs) before moving on.
 
 ## 3. Write the week spec
 
 `posts/week-<week>.json`, same shape as `posts/week-2026-11-02.json`:
-`id` (`1-Mon`), `date_label` exactly like `Monday, November 9th, 2026` (Buffer's date picker labels), `time` `7:00 PM`, `title` (TikTok title, under 60 chars), `caption` (hook line, blank line, value, blank line, question or CTA, blank line, 5 hashtags), `song_suggestion`, `images` as paths under `posts/`, e.g. `2026-11-09/1-Mon_slide1.jpg`.
+`id` (`1-Mon`), `date_label` exactly like `Monday, November 9th, 2026` (Buffer's date picker labels), `time` `7:00 PM`, `title` (TikTok title, under 60 chars), `caption` (hook line, blank line, value, blank line, one question, blank line, `Follow for tomorrow: <tease>.` (Sunday: the plan link line, then `Follow for Monday: <tease>.`), blank line, 5 hashtags), `song_suggestion`, `images` as paths under `posts/`, e.g. `2026-11-09/1-Mon_slide1.jpg`.
 
 Commit `build/<week>/`, `posts/<week>/` and the JSON, then push to `main`. Buffer pulls images from `https://raw.githubusercontent.com/leroymoses/dumbbell-dads-club/main/posts/`, so the push must land before step 4.
 
@@ -64,9 +65,11 @@ After the last post, reload the queue and check that every card for the week has
 
 Send Leroy one short message: each day's hook with its song suggestion (he adds the sound to each TikTok post when Buffer's Notify Me reminder arrives, and can add music to the Instagram post after it goes live), anything you had to fix, anything that failed. No em dashes. If the computer or the browser was unreachable, still do steps 1 to 3, say so plainly, and tell him the posts are ready in GitHub.
 
-## 6. Update the scoreboard (every run, after scheduling)
+## 6. Numbers (retired, Nov 2026)
 
-Dashboard: `https://claude.ai/artifact/8brXkXrDXw76Kqt6LMft2U` (a Dashboard artifact). Its data lives in three JSON files the page reads, one row object per line of data. Never invent or estimate a number: if you can't read a value, leave that row out and say so in the report.
+Do not run this step. Leroy HQ (`https://claude.ai/artifact/9BifhFVV2EmyJtXWPx1Lkc`) is the record for DDC numbers now, filled by his nightly check-in. The old scoreboard below is kept for reference only; never write to it.
+
+Old dashboard: `https://claude.ai/artifact/8brXkXrDXw76Kqt6LMft2U` (a Dashboard artifact). Its data lives in three JSON files the page reads, one row object per line of data. Never invent or estimate a number: if you can't read a value, leave that row out and say so in the report.
 
 | Dataset id | Rows | Where to read it |
 | --- | --- | --- |

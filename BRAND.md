@@ -58,7 +58,16 @@ Never recolor the plates or put the crest on a busy photo. Keep a clear space ar
 - **Format:** 1080 x 1350 (4:5) carousels, 5 to 8 slides, exported as PNG. TikTok uses the same images in photo mode.
 - **Slide 1 (hook):** navy background, Graduate varsity type in cream, ONE line in gold Yellowtail script. A gold weight plate breaks the top right corner. Must stop the scroll in under 2 seconds.
 - **Middle slides (value):** cream background, navy text, a navy chip with gold varsity label (Move 01, Rule 02), set and rep boxes on **panel**, dad tips labeled in **dugout-red-deep**.
-- **Last slide (CTA):** navy background, a gold script payoff line, the handle in gold.
+- **Last slide (follow slide):** navy background. Payoff line with a gold script accent (hook at 80px). Then a cream **Tomorrow** box (`.next`: red varsity label, bold Inter line) naming the actual next post, then the gold **FOLLOW** button beside the handle (`.fol`). Sunday keeps the plan pitch on top and labels the box **Monday**.
+
+## Growing followers
+
+People follow a page when they expect the next post to be worth it. Every post makes that promise out loud.
+
+- **Name tomorrow, specifically.** The follow slide and the caption both tease the next day's real post ("Tomorrow: the protein shake myth, busted"). Never "follow for more."
+- **One ask per spot.** The last slide asks for the follow. The caption asks one question for comments, then one follow line. Save prompts live in the value, not the CTA ("Save this for tonight" stays in the caption only for workouts).
+- **Series give people a reason to come back.** Respawn Reps on Thursdays always says which episode is next.
+- **The profile closes the deal.** Viewers who like a post check the profile before following. The bio says who it's for, what they get and how often, and the pinned posts show the best of it.
 - **Margins:** everything inside **space-8** (72px); keep the bottom 240px clear, since app UI covers it.
 - **Shapes:** square chips and bars, round plates. No stock photos of shirtless guys. No gradients.
 - **Type:** Graduate for hooks, titles and labels. Yellowtail script for one accent line only, never body text. Inter for everything you actually read.
