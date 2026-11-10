@@ -1,0 +1,77 @@
+{
+ "pillar": "The Workout",
+ "hook": {
+  "l1": "Desk all day?",
+  "l2": "10 minutes.",
+  "script": "Move better.",
+  "sub": "5 mobility moves. One dumbbell. No mat required.",
+  "watch": "Watch the moves"
+ },
+ "items": [
+  {
+   "chip": "Move 01",
+   "title": "Cat-cow",
+   "icon": {
+    "type": "reps",
+    "n": "8",
+    "label": "slow reps"
+   },
+   "cap": "How",
+   "line": "Hands and knees. Round your back up, then let it sag.",
+   "tip": "Breathe out as you round."
+  },
+  {
+   "chip": "Move 02",
+   "title": "World's greatest stretch",
+   "icon": {
+    "type": "reps",
+    "n": "5",
+    "label": "each side"
+   },
+   "cap": "How",
+   "line": "Big lunge, hand inside your foot, reach to the ceiling.",
+   "tip": "The name is not an exaggeration."
+  },
+  {
+   "chip": "Move 03",
+   "title": "Goblet squat hold",
+   "icon": {
+    "type": "timer",
+    "secs": 30,
+    "label": "2 holds"
+   },
+   "cap": "How",
+   "line": "Dumbbell at your chest. Sit deep and hang out.",
+   "tip": "Only as deep as feels okay."
+  },
+  {
+   "chip": "Move 04",
+   "title": "Open book",
+   "icon": {
+    "type": "reps",
+    "n": "8",
+    "label": "each side"
+   },
+   "cap": "How",
+   "line": "On your side. Open your top arm like turning a page.",
+   "tip": "Keep your knees stacked."
+  },
+  {
+   "chip": "Move 05",
+   "title": "Hip flexor stretch",
+   "icon": {
+    "type": "timer",
+    "secs": 30,
+    "label": "each side"
+   },
+   "cap": "How",
+   "line": "One knee down. Squeeze that glute, shift forward.",
+   "tip": "Pad the knee with a couch cushion."
+  }
+ ],
+ "end": {
+  "l1": "Move first.",
+  "script": "Lift after.",
+  "tease": "The protein shake myth, busted"
+ }
+}

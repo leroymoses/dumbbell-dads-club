@@ -1,0 +1,70 @@
+{
+ "pillar": "Dad Life",
+ "hook": {
+  "l1": "One kids'",
+  "l2": "episode.",
+  "script": "One workout.",
+  "sub": "They watch a cartoon. You train in the same room.",
+  "watch": "Watch the plan"
+ },
+ "items": [
+  {
+   "chip": "Part 01",
+   "title": "Theme song warm-up",
+   "icon": {
+    "type": "notes",
+    "label": "Arm circles, squats, march in place"
+   },
+   "cap": "Until the song ends",
+   "line": "The theme song is your timer. When it stops, you start.",
+   "tip": "Long theme song? Lucky you."
+  },
+  {
+   "chip": "Part 02",
+   "title": "The circuit",
+   "icon": {
+    "type": "checklist",
+    "items": [
+     "10 squats",
+     "10 rows each side",
+     "10 push-ups",
+     "20 sec plank"
+    ]
+   },
+   "cap": "One round",
+   "line": "Two dumbbells. No jumping. Rest a minute.",
+   "tip": "Couch push-ups are fine."
+  },
+  {
+   "chip": "Part 03",
+   "title": "Repeat until credits",
+   "icon": {
+    "type": "tv",
+    "rounds": 4,
+    "label": "About 3 to 4 rounds"
+   },
+   "cap": "Keep going",
+   "line": "Round after round. Credits roll, you are done.",
+   "tip": "Autoplay the next one? Bonus round."
+  },
+  {
+   "chip": "Part 04",
+   "title": "Let them count",
+   "icon": {
+    "type": "count",
+    "from": 1,
+    "to": 10,
+    "dur": 1.3,
+    "label": "Your new hype man"
+   },
+   "cap": "Kid job",
+   "line": "They count your reps out loud.",
+   "tip": "They will absolutely skip numbers."
+  }
+ ],
+ "end": {
+  "l1": "Screen time.",
+  "script": "Rep time.",
+  "tease": "10 minutes to undo a day at the desk"
+ }
+}

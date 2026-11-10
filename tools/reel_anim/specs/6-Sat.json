@@ -1,0 +1,78 @@
+{
+ "pillar": "Myth Busting",
+ "hook": {
+  "l1": "Your protein",
+  "l2": "shake",
+  "script": "can wait.",
+  "sub": "Myth: miss the 30-minute window and the workout is wasted.",
+  "watch": "Watch the truth"
+ },
+ "items": [
+  {
+   "chip": "The truth",
+   "ghost": "!",
+   "title": "Total beats timing",
+   "icon": {
+    "type": "clockx",
+    "right": "Daily total"
+   },
+   "cap": "What the research found",
+   "line": "Total daily protein was the strongest predictor of growth.",
+   "src": "Schoenfeld, Aragon and Krieger, 2013, JISSN"
+  },
+  {
+   "chip": "Do this 01",
+   "title": "Protein every meal",
+   "icon": {
+    "type": "plates",
+    "labels": [
+     "Breakfast",
+     "Lunch",
+     "Dinner"
+    ]
+   },
+   "cap": "The rule",
+   "line": "Some protein at every meal. Easy daily total.",
+   "tip": "Eggs count. So does Greek yogurt."
+  },
+  {
+   "chip": "Do this 02",
+   "title": "Keep easy options",
+   "icon": {
+    "type": "chips",
+    "size": 44,
+    "items": [
+     "Greek yogurt",
+     "Cottage cheese",
+     "Jerky",
+     "Eggs",
+     "Chicken"
+    ]
+   },
+   "cap": "Stock up",
+   "line": "If it is in the fridge, you will eat it.",
+   "tip": "Hide it from the kids."
+  },
+  {
+   "chip": "Do this 03",
+   "title": "Lift, then live",
+   "icon": {
+    "type": "checklist",
+    "items": [
+     "Lift",
+     "Shower",
+     "Bedtime story",
+     "Normal next meal"
+    ]
+   },
+   "cap": "After training",
+   "line": "No panic chugging. Get protein in across the day.",
+   "tip": "A shake is just food in a cup."
+  }
+ ],
+ "end": {
+  "l1": "No window.",
+  "script": "Just a total.",
+  "tease": "Score your whole week in 3 boxes"
+ }
+}

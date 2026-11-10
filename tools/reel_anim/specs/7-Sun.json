@@ -1,0 +1,68 @@
+{
+ "pillar": "Dad Life",
+ "hook": {
+  "l1": "Score your",
+  "l2": "week in",
+  "script": "3 boxes.",
+  "sub": "No app. No spreadsheet. Just 3 yes or no questions.",
+  "watch": "Watch the scorecard"
+ },
+ "items": [
+  {
+   "chip": "Box 01",
+   "title": "Lifted 2+ times?",
+   "icon": {
+    "type": "checkbox",
+    "label": "Any length counts"
+   },
+   "cap": "Yes counts if",
+   "line": "Two full-body sessions this week.",
+   "tip": "A 15-minute Bedtime Lift counts."
+  },
+  {
+   "chip": "Box 02",
+   "title": "Protein most meals?",
+   "icon": {
+    "type": "checkbox",
+    "label": "Most, not all"
+   },
+   "cap": "Yes counts if",
+   "line": "Protein showed up at most meals.",
+   "tip": "Cereal for dinner happened. Still fine."
+  },
+  {
+   "chip": "Box 03",
+   "title": "Kept a bedtime?",
+   "icon": {
+    "type": "checkbox",
+    "label": "Most nights"
+   },
+   "cap": "Yes counts if",
+   "line": "Lights out on time most nights.",
+   "tip": "One more episode is never one more."
+  },
+  {
+   "chip": "The score",
+   "ghost": "3",
+   "title": "Count the checks",
+   "icon": {
+    "type": "count",
+    "from": 0,
+    "to": 3,
+    "dur": 1.0,
+    "suffix": "/3",
+    "label": "3 great. 2 good. 1 still a week."
+   },
+   "cap": "Next Sunday",
+   "line": "Write it down. Beat it by one.",
+   "tip": "0 means you are due. Not done."
+  }
+ ],
+ "end": {
+  "l1": "Want the full",
+  "script": "8-week plan?",
+  "extra": "Plus a free 15-minute Bedtime Lift workout. Both at the link in our Instagram bio.",
+  "nextLabel": "Monday",
+  "tease": "A new 20-minute dumbbell workout"
+ }
+}

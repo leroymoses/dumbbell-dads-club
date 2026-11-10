@@ -1,0 +1,78 @@
+{
+ "pillar": "Myth Busting",
+ "hook": {
+  "l1": "You don't",
+  "l2": "need to lift",
+  "script": "every day.",
+  "sub": "Myth: if you're not training daily, it doesn't count.",
+  "watch": "Watch the truth"
+ },
+ "items": [
+  {
+   "chip": "The truth",
+   "ghost": "2",
+   "title": "2 days is the guideline",
+   "icon": {
+    "type": "cal",
+    "days": [
+     0,
+     3
+    ],
+    "label": "2 days a week"
+   },
+   "cap": "The guideline",
+   "line": "Muscle-strengthening activity on at least 2 days a week.",
+   "src": "CDC, Physical Activity Guidelines for adults"
+  },
+  {
+   "chip": "Do this 01",
+   "title": "Pick 2 or 3 nights",
+   "icon": {
+    "type": "cal",
+    "days": [
+     0,
+     2,
+     4
+    ],
+    "label": "Same nights every week"
+   },
+   "cap": "Example",
+   "line": "Mon and Thu. Or Mon, Wed, Fri.",
+   "tip": "Put them in the shared calendar."
+  },
+  {
+   "chip": "Do this 02",
+   "title": "Hit everything",
+   "icon": {
+    "type": "chips",
+    "items": [
+     "Squat",
+     "Push",
+     "Pull",
+     "Hinge",
+     "Core"
+    ]
+   },
+   "cap": "Each night",
+   "line": "One move for each. Full body, every session.",
+   "tip": "2 nights covers every major muscle group."
+  },
+  {
+   "chip": "Do this 03",
+   "title": "Walk on off days",
+   "icon": {
+    "type": "walk",
+    "to": 150,
+    "label": "minutes a week of moderate activity"
+   },
+   "cap": "Off night",
+   "line": "A walk after dinner. Kids optional.",
+   "src": "CDC, Physical Activity Guidelines for adults"
+  }
+ ],
+ "end": {
+  "l1": "Consistent",
+  "script": "beats daily.",
+  "tease": "The one-episode living room workout"
+ }
+}

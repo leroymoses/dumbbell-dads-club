@@ -1,6 +1,6 @@
 """Render an animated 9:16 Reel from an HTML timeline.
 
-Usage: python3 tools/reel_anim/build.py tools/reel_anim/tue_sink.html reels/2026-11-09/2-Tue.mp4 [--frames 0.2,1.5]
+Usage: python3 tools/reel_anim/build.py <spec.json | page.html> reels/2026-11-09/2-Tue.mp4 [--frames 0.2,1.5]
 The page defines window.render(t) and window.TOTAL. Each chunk of the timeline is
 captured frame by frame (JPEG piped straight into ffmpeg), chunks are joined with
 the concat demuxer, and a silent stereo track is added so the apps accept it.
@@ -66,6 +66,9 @@ def rules_html():
 
 def page(src):
     ensure_fonts()
+    if src.endswith('.json'):  # a spec for the generic engine
+        s = (pathlib.Path(__file__).parent / 'engine.html').read_text()
+        return s.replace('/*FONTS*/', font_css()).replace('/*SPEC*/', pathlib.Path(src).read_text())
     s = pathlib.Path(src).read_text()
     return s.replace('/*FONTS*/', font_css()).replace('<!--RULES-->', rules_html())
 
@@ -83,13 +86,15 @@ def main():
         pg.evaluate('document.fonts.ready')
         pg.wait_for_timeout(300)
         total = pg.evaluate('window.TOTAL')
+        if pg.evaluate('typeof window.layout') == 'function':
+            print('overflow:', pg.evaluate('layout()') or 'none')
         if stills:
             for t in stills:
                 pg.evaluate(f'render({t})')
                 pg.screenshot(path=f'{out}_{t:05.2f}.jpg', type='jpeg', quality=90)
             print('stills', stills, 'total', total)
             return
-        bounds = json.loads(pg.evaluate('JSON.stringify([0, 2.7, 2.7+12, TOTAL])'))
+        bounds = json.loads(pg.evaluate('JSON.stringify(window.BOUNDS || [0, 2.7, 2.7+12, TOTAL])'))
         with tempfile.TemporaryDirectory() as td:
             parts = []
             for c in range(len(bounds) - 1):

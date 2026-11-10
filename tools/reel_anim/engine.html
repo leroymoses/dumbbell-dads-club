@@ -1,0 +1,198 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+/*FONTS*/
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#1E2B45}
+*{box-sizing:border-box}
+:root{--navy:#1E2B45;--cream:#F6EEDC;--gold:#F4B41A;--panel:#EADFC6;--red:#A82A22;--slate:#5A6378}
+.abs{position:absolute;left:0;top:0}
+.g{font-family:Graduate,Georgia,serif;text-transform:uppercase;line-height:1.02}
+.y{font-family:Yellowtail,cursive;color:var(--gold);text-transform:none}
+.i{font-family:Inter,system-ui,sans-serif}
+#stage{position:absolute;inset:0;overflow:hidden}
+.scene{position:absolute;inset:0;display:none}
+.navy{background:var(--navy);color:var(--cream)}
+.plate{border-radius:50%;background:var(--gold);box-shadow:0 0 0 22px var(--navy),0 0 0 36px var(--cream);display:flex;align-items:center;justify-content:center}
+.plate .hole{width:24%;height:24%;border-radius:50%;background:var(--navy)}
+.brand{left:90px;top:150px;font-size:30px;letter-spacing:.08em}
+.bar{left:90px;top:205px;width:180px;height:16px;background:var(--gold);transform-origin:left}
+.hl{left:90px;font-size:124px;white-space:nowrap;transform-origin:left center}
+.big-y{left:80px;font-size:210px;line-height:1;white-space:nowrap}
+#hsub{left:90px;top:1230px;width:880px;font-size:46px;line-height:60px;font-weight:500}
+#hwatch{left:90px;top:1390px;font-size:34px;letter-spacing:.08em;color:var(--gold)}
+#wipe{width:1080px;height:1920px;background:var(--cream);display:none}
+.rule{background:var(--cream);color:var(--navy)}
+.rbrand{left:90px;top:150px;font-size:30px;letter-spacing:.08em;color:var(--slate)}
+.prog{left:90px;top:205px;width:900px;height:14px;display:flex;gap:14px}
+.prog div{flex:1;background:var(--panel);position:relative;overflow:hidden}
+.prog div i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+.ghost{left:560px;top:250px;font-size:430px;color:var(--panel);line-height:1;white-space:nowrap}
+.chip{left:90px;top:400px;background:var(--navy);color:var(--gold);font-size:48px;padding:20px 32px;letter-spacing:.04em;line-height:1;white-space:nowrap}
+.title{left:90px;top:500px;width:920px;font-size:112px;line-height:1.02}
+.title span{display:inline-block;margin-right:.25em}
+.icon{left:140px;top:770px;width:800px;height:410px}
+.box{left:90px;top:1210px;width:900px;background:var(--panel);border-radius:8px;padding:34px 44px}
+.box .cap{font-size:32px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.08em}
+.box .line{font-size:50px;line-height:62px;font-weight:700;margin-top:10px}
+.tip{left:90px;top:1460px;width:900px;font-size:40px;line-height:52px;font-weight:500;color:var(--slate)}
+.tip b{color:var(--red)}
+.src{left:90px;top:1460px;width:900px;font-size:30px;line-height:40px;color:var(--slate)}
+.ctr{display:flex;align-items:center;justify-content:center}
+.lbl{font-family:Inter,sans-serif;font-weight:700;color:var(--navy)}
+#eplate{width:560px;height:560px;left:620px;top:-200px}
+#e1{left:90px;top:600px;font-size:150px;white-space:nowrap;transform-origin:left center}
+#e2{left:80px;top:780px;font-size:196px;line-height:1;white-space:nowrap}
+#enext{left:90px;top:1060px;width:900px;border:4px solid var(--gold);border-radius:8px;padding:28px 36px}
+#eextra{left:90px;top:1060px;width:900px}
+#efol{left:90px;top:1330px;display:flex;align-items:center;transform-origin:left center}
+.fbtn{background:var(--gold);color:var(--navy);font-size:58px;padding:22px 40px;line-height:1}
+</style></head>
+<body><div id="stage"></div>
+<script>
+const SPEC=/*SPEC*/;
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const P=(t,t0,d)=>cl((t-t0)/d);
+const eo=x=>1-Math.pow(1-x,3);
+const eb=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const ei=x=>x*x*x;
+const lerp=(a,b,x)=>a+(b-a)*x;
+function S(el,{x=0,y=0,s=1,r=0,o=1,clip=null}={}){if(!el)return;el.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;el.style.opacity=o;if(clip!==null)el.style.clipPath=clip;}
+const H=(html)=>{const d=document.createElement('div');d.innerHTML=html.trim();return d.firstChild;};
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const NAVY='#1E2B45',CREAM='#F6EEDC',GOLD='#F4B41A',PANEL='#EADFC6',RED='#A82A22',SLATE='#5A6378';
+const stage=$('stage');
+function show(id){document.querySelectorAll('.scene').forEach(s=>s.style.display=s.id===id?'block':'none');}
+
+/* ---------- icons: build(el,spec) + anim(el,t,spec) ---------- */
+const CHECK=`<svg viewBox="0 0 100 100" width="100%" height="100%"><path d="M22 52 L42 72 L80 30" fill="none" stroke="${NAVY}" stroke-width="14" stroke-linecap="square" stroke-dasharray="120" stroke-dashoffset="120" class="ckp"/></svg>`;
+const ICONS={
+ cal:{build(el,s){const D=['M','T','W','T','F','S','S'];el.innerHTML=D.map((d,k)=>`<div class="abs ctr g day" style="left:${k*114}px;top:60px;width:100px;height:150px;background:${PANEL};font-size:54px;color:${NAVY};flex-direction:column">${d}<div class="mk" style="width:44px;height:44px;margin-top:10px"></div></div>`).join('')+`<div class="abs lbl cl" style="left:0;top:270px;width:800px;text-align:center;font-size:52px">${esc(s.label||'')}</div>`;},
+  anim(el,t,s){const days=[...el.querySelectorAll('.day')];days.forEach((d,k)=>{const p=eo(P(t,.25+k*.04,.3));S(d,{y:lerp(60,0,p),o:p});const on=s.days.indexOf(k);
+   if(on>=0){const q=eb(P(t,.8+on*.3,.3));d.style.background=q>0?GOLD:PANEL;S(d,{y:lerp(60,0,p)-18*Math.sin(cl(q)*Math.PI),o:p});d.querySelector('.mk').innerHTML=q>0?CHECK:'';const c=d.querySelector('.ckp');if(c)c.style.strokeDashoffset=120*(1-q);}});
+   const l=eb(P(t,.9+s.days.length*.3,.35));S(el.querySelector('.cl'),{s:l,o:cl(l*2)});}},
+ chips:{build(el,s){el.innerHTML=`<div class="abs" style="left:0;top:20px;width:800px;display:flex;flex-wrap:wrap;gap:22px;justify-content:center">`+s.items.map(w=>`<div class="g cp" style="background:${NAVY};color:${GOLD};font-size:${s.size||52}px;padding:22px 30px;line-height:1">${esc(w)}</div>`).join('')+`</div>`;},
+  anim(el,t,s){[...el.querySelectorAll('.cp')].forEach((c,k)=>{const p=eb(P(t,.35+k*.16,.32));S(c,{s:lerp(.3,1,p),o:cl(p*2),r:lerp(-12,0,p)})});}},
+ checklist:{build(el,s){el.innerHTML=s.items.map((w,k)=>`<div class="abs row" style="left:40px;top:${k*(s.gap||96)}px;display:flex;align-items:center;gap:30px"><div class="bx" style="width:72px;height:72px;border:8px solid ${NAVY};background:#fff">${CHECK}</div><div class="lbl" style="font-size:${s.size||48}px">${esc(w)}</div></div>`).join('');},
+  anim(el,t,s){[...el.querySelectorAll('.row')].forEach((r,k)=>{const p=eo(P(t,.3+k*.1,.3));S(r,{x:lerp(-80,0,p),o:p});const q=P(t,.8+k*.32,.25);r.querySelector('.bx').style.background=q>0?GOLD:'#fff';r.querySelector('.ckp').style.strokeDashoffset=120*(1-eo(q));const lb=r.querySelector('.lbl');lb.style.textDecoration=s.strike&&q>=1?'line-through':'none';});}},
+ count:{build(el,s){el.innerHTML=`<div class="abs ctr g num" style="left:0;top:0;width:800px;height:290px;font-size:${s.size||270}px;color:${NAVY}">0</div><div class="abs lbl cl" style="left:0;top:300px;width:800px;text-align:center;font-size:48px">${esc(s.label||'')}</div>`;},
+  anim(el,t,s){const p=P(t,.4,s.dur||1.4);const v=Math.round(lerp(s.from||0,s.to,eo(p)));const n=el.querySelector('.num');n.textContent=(s.prefix||'')+v+(s.suffix||'');
+   const tick=(t-.4)*(s.to/(s.dur||1.4));const bump=p<1?1+.06*Math.abs(Math.sin(tick*Math.PI)):1+.12*(1-eo(P(t,.4+(s.dur||1.4),.3)));S(n,{s:p>0?bump:.6,o:cl(P(t,.3,.2))});n.style.color=p>=1?RED:NAVY;
+   const l=eo(P(t,.6,.4));S(el.querySelector('.cl'),{y:lerp(30,0,l),o:l});}},
+ timer:{build(el,s){el.innerHTML=`<svg class="abs" style="left:230px;top:0" width="340" height="340" viewBox="0 0 340 340"><circle cx="170" cy="170" r="140" fill="#fff" stroke="${PANEL}" stroke-width="34"/><circle class="rg" cx="170" cy="170" r="140" fill="none" stroke="${GOLD}" stroke-width="34" stroke-dasharray="880" stroke-dashoffset="880" transform="rotate(-90 170 170)"/></svg><div class="abs ctr g sec" style="left:230px;top:0;width:340px;height:340px;font-size:110px;color:${NAVY}">${s.secs}</div><div class="abs lbl cl" style="left:0;top:350px;width:800px;text-align:center;font-size:48px">${esc(s.label||'')}</div>`;},
+  anim(el,t,s){const p=P(t,.4,1.8);el.querySelector('.rg').style.strokeDashoffset=880*(1-p);el.querySelector('.sec').textContent=Math.ceil(s.secs*(1-p))||'0';
+   const a=eb(P(t,.15,.35));S(el.querySelector('svg'),{s:a,o:cl(a*2)});S(el.querySelector('.sec'),{s:a,o:cl(a*2)});const l=eo(P(t,.7,.4));S(el.querySelector('.cl'),{y:lerp(30,0,l),o:l});}},
+ reps:{build(el,s){el.innerHTML=`<svg class="abs db" style="left:40px;top:60px" width="300" height="300" viewBox="0 0 300 300"><rect x="40" y="135" width="220" height="30" fill="${NAVY}"/><rect x="20" y="80" width="56" height="140" rx="10" fill="${GOLD}" stroke="${NAVY}" stroke-width="10"/><rect x="224" y="80" width="56" height="140" rx="10" fill="${GOLD}" stroke="${NAVY}" stroke-width="10"/></svg><div class="abs g num" style="left:380px;top:40px;font-size:230px;color:${NAVY};line-height:1;white-space:nowrap">${esc(s.n)}</div><div class="abs lbl cl" style="left:390px;top:290px;font-size:48px;white-space:nowrap">${esc(s.label)}</div>`;},
+  anim(el,t,s){const a=eb(P(t,.3,.4));S(el.querySelector('.db'),{s:a,o:cl(a*2),y:-50*Math.abs(Math.sin(cl(t-.7,0,9)*Math.PI*1.2)),r:-8*Math.sin(cl(t-.7,0,9)*Math.PI*1.2)});
+   const n=eb(P(t,.6,.35));S(el.querySelector('.num'),{s:lerp(1.8,1,n),o:cl(n*2)});const l=eo(P(t,.9,.35));S(el.querySelector('.cl'),{x:lerp(40,0,l),o:l});}},
+ notes:{build(el,s){const N=(x,y,c)=>`<svg class="abs nt" style="left:${x}px;top:${y}px" width="130" height="190" viewBox="0 0 130 190"><rect x="80" y="10" width="16" height="130" fill="${c}"/><path d="M96 10 Q125 30 120 70 Q110 45 96 42Z" fill="${c}"/><ellipse cx="60" cy="145" rx="42" ry="32" fill="${c}"/></svg>`;
+   el.innerHTML=N(120,40,NAVY)+N(330,0,GOLD)+N(540,50,NAVY)+`<div class="abs lbl cl" style="left:0;top:290px;width:800px;text-align:center;font-size:48px">${esc(s.label)}</div>`;},
+  anim(el,t,s){[...el.querySelectorAll('.nt')].forEach((n,k)=>{const a=eb(P(t,.25+k*.15,.35));S(n,{s:a,o:cl(a*2),y:-40*Math.abs(Math.sin((t*2.2+k*.5)*Math.PI)),r:10*Math.sin((t*2+k)*Math.PI)})});const l=eo(P(t,.8,.4));S(el.querySelector('.cl'),{y:lerp(30,0,l),o:l});}},
+ tv:{build(el,s){el.innerHTML=`<div class="abs tvb" style="left:170px;top:0;width:460px;height:290px;background:${NAVY};border-radius:24px;padding:22px"><div class="ctr g scr" style="width:100%;height:100%;background:${GOLD};border-radius:10px;font-size:84px;color:${NAVY}">Round 1</div></div><div class="abs" style="left:330px;top:290px;width:140px;height:30px;background:${NAVY}"></div><div class="abs lbl cl" style="left:0;top:345px;width:800px;text-align:center;font-size:48px">${esc(s.label)}</div>`;},
+  anim(el,t,s){const a=eb(P(t,.2,.4));S(el.querySelector('.tvb'),{s:a,o:cl(a*2)});const r=1+Math.min(s.rounds-1,Math.floor(cl(t-.6,0,9)/.42));const sc=el.querySelector('.scr');sc.textContent=t>.6+.42*(s.rounds-1)+.4?'Credits':'Round '+r;
+   const f=(cl(t-.6,0,9)%.42)/.42;S(sc,{s:1+.08*(1-eo(f))});const l=eo(P(t,.8,.4));S(el.querySelector('.cl'),{y:lerp(30,0,l),o:l});}},
+ plates:{build(el,s){el.innerHTML=s.labels.map((w,k)=>`<div class="abs pt" style="left:${k*270+10}px;top:30px;width:240px;height:240px;border-radius:50%;background:#fff;border:12px solid ${NAVY}"><div class="abs ctr g dot" style="left:46px;top:46px;width:124px;height:124px;border-radius:50%;background:${GOLD};font-size:34px;color:${NAVY}">Protein</div></div><div class="abs g" style="left:${k*270+10}px;top:290px;width:240px;text-align:center;font-size:42px;color:${NAVY}">${esc(w)}</div>`).join('');},
+  anim(el,t,s){[...el.querySelectorAll('.pt')].forEach((p,k)=>{const a=eb(P(t,.25+k*.1,.35));S(p,{s:a,o:cl(a*2)});const d=eb(P(t,.9+k*.3,.3));S(p.querySelector('.dot'),{s:d,o:cl(d*2)})});}},
+ clockx:{build(el,s){el.innerHTML=`<svg class="abs ck" style="left:40px;top:20px" width="300" height="300" viewBox="0 0 300 300"><circle cx="150" cy="150" r="130" fill="#fff" stroke="${NAVY}" stroke-width="16"/><line class="hd" x1="150" y1="150" x2="150" y2="60" stroke="${NAVY}" stroke-width="14" stroke-linecap="round"/><circle cx="150" cy="150" r="14" fill="${NAVY}"/></svg>
+   <svg class="abs xx" style="left:40px;top:20px" width="300" height="300" viewBox="0 0 300 300"><path d="M60 60 L240 240 M240 60 L60 240" stroke="${RED}" stroke-width="30" stroke-linecap="square"/></svg>
+   <div class="abs g" style="left:400px;top:40px;font-size:48px;color:${NAVY}">${esc(s.right||'Daily total')}</div><div class="abs" style="left:400px;top:110px;width:360px;height:90px;background:${PANEL}"><div class="fl" style="width:100%;height:100%;background:${GOLD};transform-origin:left;transform:scaleX(0)"></div></div><div class="abs g ok" style="left:400px;top:230px;font-size:56px;color:${NAVY}">This wins</div>`;},
+  anim(el,t,s){const a=eb(P(t,.2,.35));S(el.querySelector('.ck'),{s:a,o:cl(a*2)});el.querySelector('.hd').setAttribute('transform',`rotate(${t*360} 150 150)`);
+   const x=eb(P(t,.9,.3));S(el.querySelector('.xx'),{s:lerp(2,1,x),o:cl(x*2)});el.querySelector('.fl').style.transform=`scaleX(${eo(P(t,1.1,.8))})`;const o=eb(P(t,1.8,.3));S(el.querySelector('.ok'),{s:o,o:cl(o*2)});}},
+ checkbox:{build(el,s){el.innerHTML=`<div class="abs bx" style="left:290px;top:0;width:220px;height:220px;border:16px solid ${NAVY};background:#fff">${CHECK}</div><div class="abs lbl cl" style="left:0;top:260px;width:800px;text-align:center;font-size:52px">${esc(s.label)}</div>`;},
+  anim(el,t,s){const a=eb(P(t,.25,.35));const b=el.querySelector('.bx');const q=P(t,.85,.3);S(b,{s:a*(q>0&&q<1?1.08:1),o:cl(a*2)});b.style.background=q>0?GOLD:'#fff';b.querySelector('.ckp').style.strokeDashoffset=120*(1-eo(q));const l=eo(P(t,1.1,.4));S(el.querySelector('.cl'),{y:lerp(30,0,l),o:l});}},
+ walk:{build(el,s){el.innerHTML=`<svg class="abs" style="left:0;top:0" width="800" height="200" viewBox="0 0 800 200"><path class="pth" d="M20 160 C200 20 380 200 560 80 S760 60 780 40" fill="none" stroke="${GOLD}" stroke-width="18" stroke-dasharray="20 22" pathLength="1000" /></svg><div class="abs g num" style="left:0;top:180px;width:800px;text-align:center;font-size:150px;color:${NAVY}">0</div><div class="abs lbl cl" style="left:0;top:340px;width:800px;text-align:center;font-size:44px">${esc(s.label)}</div>`;},
+  anim(el,t,s){const p=eo(P(t,.3,1.3));const pt=el.querySelector('.pth');pt.style.clipPath=`inset(0 ${100-p*100}% 0 0)`;el.querySelector('.num').textContent=Math.round(s.to*p)+(s.suffix||'');S(el.querySelector('.num'),{o:cl(P(t,.3,.2))});const l=eo(P(t,1.2,.4));S(el.querySelector('.cl'),{y:lerp(30,0,l),o:l});}},
+ lid:{build(el){el.innerHTML=`<div class="abs tub" style="left:180px;top:150px;width:440px;height:240px;border:14px solid ${NAVY};border-top:none;border-radius:0 0 26px 26px;background:#fff"></div><div class="abs lid" style="left:160px;top:110px;width:480px;height:50px;background:${GOLD};border:14px solid ${NAVY};border-radius:14px"></div>`;},anim(el,t){}},
+};
+
+/* ---------- build scenes ---------- */
+const N=SPEC.items.length, T_HOOK=2.7, T_ITEM=SPEC.itemDur||3.0, T_END=3.4;
+window.TOTAL=T_HOOK+N*T_ITEM+T_END;
+window.BOUNDS=[0,T_HOOK,T_HOOK+N*T_ITEM,window.TOTAL];
+const h=SPEC.hook;
+stage.appendChild(H(`<div class="scene navy" id="hook">
+ <div class="abs plate" id="hplate" style="width:620px;height:620px;left:640px;top:-240px"><div class="hole"></div></div>
+ <div class="abs g brand" id="hbrand">Dumbbell Dads Club</div><div class="abs bar" id="hbar"></div>
+ <div class="abs g hl" id="h1" data-fit="900" style="top:640px">${esc(h.l1)}</div>
+ <div class="abs g hl" id="h2" data-fit="900" style="top:780px">${esc(h.l2)}</div>
+ <div class="abs y big-y" id="h3" data-fit="920" style="top:900px">${esc(h.script)}</div>
+ <div class="abs i" id="hsub">${esc(h.sub)}</div><div class="abs g" id="hwatch">${esc(h.watch)}</div></div>`));
+SPEC.items.forEach((it,k)=>{
+ const el=H(`<div class="scene rule" id="r${k+1}"><div class="abs wrap" style="width:1080px;height:1920px">
+  <div class="abs g ghost">${esc(it.ghost||String(k+1).padStart(2,'0'))}</div>
+  <div class="abs g rbrand">${esc(SPEC.pillar)}</div>
+  <div class="abs prog">${SPEC.items.map(()=>'<div><i></i></div>').join('')}</div>
+  <div class="abs g chip">${esc(it.chip)}</div>
+  <div class="abs g title">${it.title.split(' ').map(w=>`<span>${esc(w)}</span>`).join('')}</div>
+  <div class="abs icon"></div>
+  ${it.line?`<div class="abs i box"><div class="cap">${esc(it.cap)}</div><div class="line">${esc(it.line)}</div></div>`:''}
+  ${it.tip?`<div class="abs i tip"><b>${esc(it.tipLabel||'Dad tip:')}</b> ${esc(it.tip)}</div>`:''}
+  ${it.src?`<div class="abs i src" style="top:${it.tip?1530:1460}px">Source: ${esc(it.src)}</div>`:''}
+ </div></div>`);
+ stage.appendChild(el); ICONS[it.icon.type].build(el.querySelector('.icon'),it.icon);
+});
+const e=SPEC.end;
+stage.appendChild(H(`<div class="scene navy" id="end">
+ <div class="abs plate" id="eplate"><div class="hole"></div></div>
+ <div class="abs g brand">Dumbbell Dads Club</div><div class="abs bar" style="transform:none"></div>
+ <div class="abs g" id="e1" data-fit="900" style="${e.extra?'top:500px':''}">${esc(e.l1)}</div>
+ <div class="abs y" id="e2" data-fit="920" style="${e.extra?'top:660px':''}">${esc(e.script)}</div>
+ ${e.extra?`<div class="abs" id="eextra" style="top:940px"><span class="g" style="background:${GOLD};color:${NAVY};font-size:44px;padding:16px 26px;line-height:1;display:inline-block">Link in bio</span><div class="i" style="font-size:40px;line-height:52px;font-weight:500;margin-top:18px">${esc(e.extra)}</div></div>`:''}
+ <div class="abs" id="enext" style="top:${e.extra?1180:1060}px"><div class="g" style="font-size:30px;letter-spacing:.08em;color:${GOLD}">${esc(e.nextLabel||'Tomorrow')}</div><div class="i" style="font-size:46px;line-height:58px;font-weight:700;margin-top:10px">${esc(e.tease)}</div></div>
+ <div class="abs" id="efol" style="top:${e.extra?1400:1330}px"><span class="g fbtn">Follow</span><span class="g" style="font-size:44px;color:${GOLD};margin-left:28px">@dumbbelldadsclub</span></div>
+</div>`));
+stage.appendChild(H('<div class="abs" id="wipe"></div>'));
+
+window.layout=function(){
+ document.querySelectorAll('.scene').forEach(s=>s.style.display='block');
+ document.querySelectorAll('[data-fit]').forEach(el=>{let fs=parseFloat(getComputedStyle(el).fontSize);const max=+el.dataset.fit;while(el.scrollWidth>max&&fs>40){fs-=2;el.style.fontSize=fs+'px';}});
+ document.querySelectorAll('.title').forEach(el=>{let fs=112;while(el.offsetHeight>245&&fs>60){fs-=4;el.style.fontSize=fs+'px';}});
+ const out=[];document.querySelectorAll('.box,.tip,.src').forEach(el=>{const r=el.getBoundingClientRect();if(r.bottom>1590)out.push(el.className+' '+Math.round(r.bottom));});
+ document.querySelectorAll('.scene').forEach(s=>s.style.display='none');
+ return out;
+};
+
+/* ---------- timeline ---------- */
+function hook(t){
+ show('hook');
+ const a=eb(P(t,0,.28)); S($('h1'),{s:lerp(Math.min(1.22,980/Math.max(1,$('h1').scrollWidth)),1,a)});
+ const b=eb(P(t,.32,.3)); S($('h2'),{x:lerp(1100,0,b),o:b>0?1:0});
+ const c=eo(P(t,.7,.55)); S($('h3'),{clip:`inset(0 ${100-c*100}% -20% 0)`});
+ const sh=P(t,1.2,.35); const amp=sh>0&&sh<1?(1-sh)*14*Math.sin(sh*40):0;
+ ['h1','h2','h3'].forEach(id=>{$(id).style.translate=`${amp}px 0`});
+ const d=eo(P(t,1.35,.4)); S($('hsub'),{y:lerp(40,0,d),o:d});
+ const f=eo(P(t,1.7,.4)); S($('hwatch'),{y:lerp(30,0,f),o:f});
+ S($('hplate'),{r:t*40,s:lerp(.6,1,eb(P(t,0,.6)))});
+ S($('hbrand'),{o:eo(P(t,.2,.4))}); $('hbar').style.transform=`scaleX(${eo(P(t,.1,.6))})`;
+ const w=P(t,T_HOOK-.35,.35); $('wipe').style.display=w>0?'block':'none'; $('wipe').style.transform=`translateY(${lerp(1920,0,ei(w))}px)`;
+}
+function item(n,t){
+ show('r'+n); $('wipe').style.display='none';
+ const R=$('r'+n), q=s=>R.querySelector(s), qa=s=>[...R.querySelectorAll(s)];
+ qa('.prog i').forEach((el,k)=>{el.style.transform=`scaleX(${k<n-1?1:k===n-1?eo(P(t,.1,.6)):0})`});
+ S(q('.ghost'),{x:lerp(300,0,eo(P(t,0,.7))),o:eo(P(t,0,.5))});
+ S(q('.chip'),{x:lerp(-500,0,eb(P(t,.05,.35)))});
+ qa('.title span').forEach((el,k)=>{const p=eb(P(t,.2+k*.08,.35));S(el,{y:lerp(80,0,p),s:lerp(.6,1,p),o:cl(p*2)})});
+ const bx=eo(P(t,.95,.4)); S(q('.box'),{y:lerp(60,0,bx),o:bx});
+ const tp=eo(P(t,1.5,.4)); S(q('.tip'),{y:lerp(40,0,tp),o:tp}); S(q('.src'),{y:lerp(40,0,tp),o:tp});
+ const it=SPEC.items[n-1]; ICONS[it.icon.type].anim(q('.icon'),t,it.icon);
+ const ex=ei(P(t,T_ITEM-.25,.25)), en=n>1?eo(P(t,0,.25)):1;
+ q('.wrap').style.transform=`translateX(${lerp(1150,0,en)-1150*ex}px)`;
+}
+function end(t){
+ show('end');
+ const a=eb(P(t,0,.35)); S($('e1'),{s:lerp(1.6,1,a),o:cl(a*2)}); $('e1').style.transformOrigin='left center';
+ const b=eo(P(t,.35,.6)); S($('e2'),{clip:`inset(0 ${100-b*100}% -20% 0)`});
+ const x=eo(P(t,.8,.4)); S($('eextra'),{y:lerp(40,0,x),o:x});
+ const c=eo(P(t,e.extra?1.1:.9,.4)); S($('enext'),{y:lerp(40,0,c),o:c});
+ const d=eb(P(t,e.extra?1.5:1.25,.4)); const pulse=t>2?1+.05*Math.sin((t-2)*Math.PI*3):1; S($('efol'),{s:d*pulse,o:cl(d*2)});
+ S($('eplate'),{r:t*60,s:lerp(.5,1,eb(P(t,0,.6)))});
+ const w=1-eo(P(t,0,.3)); $('wipe').style.display=w>0?'block':'none'; $('wipe').style.transform=`translateY(${lerp(0,1920,1-w)}px)`;
+}
+window.render=function(t){
+ if(t<T_HOOK) return hook(t);
+ t-=T_HOOK;
+ if(t<N*T_ITEM){const n=Math.floor(t/T_ITEM)+1; return item(n,t-(n-1)*T_ITEM);}
+ return end(t-N*T_ITEM);
+};
+</script></body></html>
