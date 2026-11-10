@@ -1,0 +1,184 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+/*FONTS*/
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#1E2B45}
+*{box-sizing:border-box}
+:root{--navy:#1E2B45;--cream:#F6EEDC;--gold:#F4B41A;--panel:#EADFC6;--red:#A82A22;--slate:#5A6378}
+.abs{position:absolute;left:0;top:0;will-change:transform,opacity}
+.g{font-family:Graduate,Georgia,serif;text-transform:uppercase;line-height:1.02}
+.y{font-family:Yellowtail,cursive;color:var(--gold);text-transform:none}
+.i{font-family:Inter,system-ui,sans-serif}
+#stage{position:absolute;inset:0;overflow:hidden}
+.scene{position:absolute;inset:0;display:none}
+/* hook */
+#hook{background:var(--navy);color:var(--cream)}
+.hl{left:90px;font-size:124px;white-space:nowrap}
+#h3{left:80px;font-size:210px;line-height:1;white-space:nowrap}
+#hsub{left:90px;top:1230px;width:880px;font-size:46px;line-height:60px;font-weight:500;color:var(--cream)}
+#hswipe{left:90px;top:1390px;font-size:34px;letter-spacing:.08em;color:var(--gold)}
+.plate{border-radius:50%;background:var(--gold);box-shadow:0 0 0 22px var(--navy),0 0 0 36px var(--cream);display:flex;align-items:center;justify-content:center}
+.plate .hole{width:24%;height:24%;border-radius:50%;background:var(--navy)}
+#hplate{width:620px;height:620px;left:640px;top:-240px}
+#brand{left:90px;top:150px;font-size:30px;letter-spacing:.08em;color:var(--cream)}
+#hbar{left:90px;top:205px;width:180px;height:16px;background:var(--gold)}
+/* cream wipe */
+#wipe{left:0;top:0;width:1080px;height:1920px;background:var(--cream);display:none}
+/* rules */
+.rule{background:var(--cream);color:var(--navy)}
+.rbrand{left:90px;top:150px;font-size:30px;letter-spacing:.08em;color:var(--slate)}
+.prog{left:90px;top:205px;width:900px;height:14px;display:flex;gap:14px}
+.prog div{flex:1;background:var(--panel);position:relative;overflow:hidden}
+.prog div i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+.ghost{left:560px;top:250px;font-size:430px;color:var(--panel);line-height:1}
+.chip{left:90px;top:400px;background:var(--navy);color:var(--gold);font-size:48px;padding:20px 32px;letter-spacing:.04em;line-height:1}
+.title{left:90px;top:500px;width:920px;font-size:112px;line-height:1.02}
+.title span{display:inline-block;margin-right:28px}
+.icon{left:140px;top:760px;width:800px;height:420px}
+.box{left:90px;top:1210px;width:900px;background:var(--panel);border-radius:8px;padding:34px 44px}
+.box .cap{font-size:32px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.08em}
+.box .line{font-size:50px;line-height:62px;font-weight:700;margin-top:10px}
+.tip{left:90px;top:1460px;width:900px;font-size:40px;line-height:52px;font-weight:500;color:var(--slate)}
+.tip b{color:var(--red)}
+/* cta */
+#cta{background:var(--navy);color:var(--cream)}
+#cplate{width:560px;height:560px;left:620px;top:-200px}
+#c1{left:90px;top:640px;font-size:150px}
+#c2{left:80px;top:810px;font-size:220px;line-height:1;white-space:nowrap}
+#c3{left:90px;top:1110px;width:880px;font-size:46px;line-height:60px;font-weight:500}
+#c4{left:90px;top:1280px;font-size:52px;color:var(--gold)}
+#csave{left:90px;top:1380px;background:var(--gold);color:var(--navy);font-size:44px;padding:20px 30px;line-height:1}
+</style></head>
+<body><div id="stage">
+
+<div class="scene" id="hook">
+  <div class="abs plate" id="hplate"><div class="hole"></div></div>
+  <div class="abs g" id="brand">Dumbbell Dads Club</div>
+  <div class="abs" id="hbar"></div>
+  <div class="abs g hl" id="h1" style="top:640px">Stop eating</div>
+  <div class="abs g hl" id="h2" style="top:780px">dinner over</div>
+  <div class="abs y" id="h3" style="top:900px">the sink.</div>
+  <div class="abs i" id="hsub">4 rules for the dad who finishes everyone's plate.</div>
+  <div class="abs g" id="hswipe">Watch the rules</div>
+</div>
+
+<!--RULES-->
+
+<div class="scene" id="cta">
+  <div class="abs plate" id="cplate"><div class="hole"></div></div>
+  <div class="abs g" style="left:90px;top:150px;font-size:30px;letter-spacing:.08em">Dumbbell Dads Club</div>
+  <div class="abs" style="left:90px;top:205px;width:180px;height:16px;background:#F4B41A"></div>
+  <div class="abs g" id="c1">Same food.</div>
+  <div class="abs y" id="c2">Better habits.</div>
+  <div class="abs i" id="c3">Save this before dinner tonight. Follow for real-life food rules for dads.</div>
+  <div class="abs g" id="c4">@dumbbelldadsclub</div>
+</div>
+
+<div class="abs" id="wipe"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const P=(t,t0,d)=>cl((t-t0)/d);
+const eo=x=>1-Math.pow(1-x,3);
+const eb=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const ei=x=>x*x*x;
+const lerp=(a,b,x)=>a+(b-a)*x;
+function S(el,{x=0,y=0,s=1,r=0,o=1,clip=null}={}){el.style.transform=`translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;el.style.opacity=o;if(clip!==null)el.style.clipPath=clip;}
+function show(id){document.querySelectorAll('.scene').forEach(s=>s.style.display=s.id===id?'block':'none');}
+
+const T_HOOK=2.7, T_RULE=3.0, N=4, T_CTA=3.2;
+window.TOTAL=T_HOOK+N*T_RULE+T_CTA;
+
+function hook(t){
+  show('hook');
+  // line 1 is on screen from frame 0, punching down from big
+  const a=eb(P(t,0,.28)); S($("h1"),{s:lerp(1.22,1,a),o:1});
+  $('h1').style.transformOrigin='left center';
+  const b=eb(P(t,.32,.3)); S($('h2'),{x:lerp(1100,0,b),o:b>0?1:0});
+  const c=eo(P(t,.7,.55)); S($('h3'),{clip:`inset(0 ${100-c*100}% -20% 0)`,o:1});
+  // shake on the payoff
+  const sh=P(t,1.2,.35); const amp=sh>0&&sh<1?(1-sh)*14*Math.sin(sh*40):0;
+  ['h1','h2','h3'].forEach(id=>{$(id).style.translate=`${amp}px 0`});
+  const d=eo(P(t,1.35,.4)); S($('hsub'),{y:lerp(40,0,d),o:d});
+  const e=eo(P(t,1.7,.4)); S($('hswipe'),{y:lerp(30,0,e),o:e});
+  S($('hplate'),{r:t*40,s:lerp(.6,1,eb(P(t,0,.6)))});
+  S($('brand'),{o:eo(P(t,.2,.4))}); S($('hbar'),{o:1});$('hbar').style.transformOrigin='left';$('hbar').style.transform=`scaleX(${eo(P(t,.1,.6))})`;
+  // exit: cream wipe up from bottom
+  const w=P(t,T_HOOK-.35,.35);
+  $('wipe').style.display=w>0?'block':'none';
+  $('wipe').style.transform=`translateY(${lerp(1920,0,ei(w))}px)`;
+}
+
+function rule(n,t){
+  show('r'+n);
+  $('wipe').style.display='none';
+  const R='r'+n, q=s=>document.querySelector(`#${R} ${s}`), qa=s=>[...document.querySelectorAll(`#${R} ${s}`)];
+  // progress segments: previous full, current fills over scene
+  qa('.prog i').forEach((el,k)=>{el.style.transform=`scaleX(${k<n-1?1:k===n-1?eo(P(t,.1,.6)):0})`});
+  S(q('.ghost'),{x:lerp(300,0,eo(P(t,0,.7))),o:eo(P(t,0,.5))});
+  const ch=eb(P(t,.05,.35)); S(q('.chip'),{x:lerp(-500,0,ch)});
+  qa('.title span').forEach((el,k)=>{const p=eb(P(t,.2+k*.09,.35));S(el,{y:lerp(80,0,p),s:lerp(.6,1,p),o:cl(p*2)})});
+  const bx=eo(P(t,.95,.4)); S(q('.box'),{y:lerp(60,0,bx),o:bx});
+  const tp=eo(P(t,1.5,.4)); S(q('.tip'),{y:lerp(40,0,tp),o:tp});
+  ICON[n](q('.icon'),t);
+  // exit: everything slides left fast
+  const ex=ei(P(t,T_RULE-.25,.25));
+  q('.wrap').style.transform=`translateX(${-1150*ex}px)`;
+  // enter from right
+  const en=eo(P(t,0,.25));
+  if(n>1) q('.wrap').style.transform=`translateX(${lerp(1150,0,en)-1150*ex}px)`;
+}
+
+const ICON={
+ 1:(el,t)=>{ // plate with checkmark drawing on
+   const p=eb(P(t,.4,.45)); S(el.querySelector('.pl'),{s:p,o:cl(p*2)});
+   const ck=eo(P(t,.9,.45)); el.querySelector('.ck').style.strokeDashoffset=400*(1-ck);
+   const kid=eo(P(t,1.2,.4)); S(el.querySelector('.k'),{x:lerp(80,0,kid),o:kid});
+ },
+ 2:(el,t)=>{ // three blocks, protein jumps to the front
+   const bl=[...el.querySelectorAll('.blk')];
+   bl.forEach((b,k)=>{const p=eb(P(t,.35+k*.08,.35));S(b,{y:lerp(120,0,p),o:cl(p*2)})});
+   const j=P(t,1.0,.6); const je=eo(j);
+   // protein block (index 2) jumps from slot 2 to slot 0, others slide right
+   const slot=270;
+   bl[0].style.left=(0+slot*je)+'px'; bl[1].style.left=(slot+slot*je)+'px';
+   bl[2].style.left=(2*slot-2*slot*je)+'px'; bl[2].style.top=(140-Math.sin(j*Math.PI)*170)+'px';
+   const one=eb(P(t,1.6,.35)); S(el.querySelector('.one'),{s:one,o:cl(one*2),r:lerp(-30,-8,one)});
+ },
+ 3:(el,t)=>{ // container, lid drops and snaps
+   const c=eb(P(t,.35,.4)); S(el.querySelector('.tub'),{y:lerp(150,0,c),o:cl(c*2)});
+   const l=P(t,.9,.35); const lid=el.querySelector('.lid');
+   const ly=l<1?lerp(-420,0,ei(l)):0; const bounce=l>=1?-Math.abs(Math.sin(P(t,1.25,.3)*Math.PI))*24*(1-P(t,1.25,.3)):0;
+   S(lid,{y:ly+bounce,o:l>0?1:0});
+   const tag=eb(P(t,1.45,.4)); S(el.querySelector('.tag'),{s:tag,o:cl(tag*2),r:lerp(20,6,tag)});
+ },
+ 4:(el,t)=>{ // chair slides in, "standing" gets struck out
+   const c=eb(P(t,.35,.45)); S(el.querySelector('.chair'),{x:lerp(-400,0,c),o:cl(c*2)});
+   const w=eo(P(t,.55,.35)); S(el.querySelector('.stand'),{o:w});
+   const st=eo(P(t,1.0,.4)); el.querySelector('.strike').style.transform=`scaleX(${st})`;
+   const ok=eb(P(t,1.35,.35)); S(el.querySelector('.ok'),{s:ok,o:cl(ok*2)});
+ },
+};
+
+function cta(t){
+  show('cta');
+  const a=eb(P(t,0,.35)); S($('c1'),{s:lerp(1.6,1,a),o:cl(a*2)}); $('c1').style.transformOrigin='left center';
+  const b=eo(P(t,.35,.6)); S($('c2'),{clip:`inset(0 ${100-b*100}% -20% 0)`});
+  const c=eo(P(t,.9,.4)); S($('c3'),{y:lerp(40,0,c),o:c});
+  const d=eb(P(t,1.2,.4)); S($('c4'),{s:d,o:cl(d*2)}); $('c4').style.transformOrigin='left center';
+  S($('cplate'),{r:t*60,s:lerp(.5,1,eb(P(t,0,.6)))});
+  // navy slides down over the cream at the start
+  const w=1-eo(P(t,0,.3));
+  $('wipe').style.display=w>0?'block':'none';
+  $('wipe').style.transform=`translateY(${lerp(0,1920,1-w)}px)`;
+}
+
+window.render=function(t){
+  if(t<T_HOOK) return hook(t);
+  t-=T_HOOK;
+  if(t<N*T_RULE){const n=Math.floor(t/T_RULE)+1; return rule(n,t-(n-1)*T_RULE);}
+  t-=N*T_RULE; return cta(t);
+};
+</script></body></html>
